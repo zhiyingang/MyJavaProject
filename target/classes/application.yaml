@@ -1,0 +1,178 @@
+#ElasticSearch配置
+es: 
+  hosts:
+    - host: 10.28.120.146
+      port: 9200
+    #- host: xxx
+    #  port: 123
+
+#启动提示
+banner:
+  charset: UTF-8
+  location: classpath:banner.txt
+#服务器配置
+server:
+  #端口配置
+  port: 8080
+  context-path:
+  max-http-header-size: 0
+  max-http-post-size: 0
+#eureka配置
+eureka: 
+  instance: 
+    hostname: localhost
+    prefer-ip-address: true
+  client: 
+    serviceUrl: 
+      defaultZone: http://localhost:1000/eureka/
+    healthcheck: 
+      enabled: true
+#spring配置
+spring:
+  #app配置
+  application:
+    #app名称
+    name: ConformClient
+  #http配置
+  http:
+    #网络大文件配置
+    multipart:
+      #文件大小限制
+      max-file-size: 20Mb
+      #请求文本大小限制
+      max-request-size: 10Mb
+  #json配置
+  jackson:
+    #时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+  #spring mvc配置
+  mvc:
+    #时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    #是否启用trace请求
+    dispatch-trace-request: false
+    #是否启用options请求
+    dispatch-options-request: true
+    #view层配置
+    view:
+      prefix: 
+      suffix: 
+  #资源配置
+  resource:
+    #默认资源位置
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  #session配置
+  session:
+    store-type:
+    redis:
+      flush-mode:
+      namespace:
+  #thymeleaf模板配置
+  thymeleaf: 
+    #调试时可用false
+    cache: false
+    content-type: text/html
+    enabled: true
+    encoding: UTF-8
+    excluded-view-names: 
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+  data:
+    #mongodb配置，多数据源的配置
+    mongodb: 
+      primary: 
+        host: 127.0.0.1
+        port: 27017
+        database: mytest
+        # Spring Data Mongodb在保存数据的时候会自动增加一个_class字段用来关联这条数据的Document实体类，大数据量下会浪费存储空间，可以通过下面的配置禁用掉
+        showClass : false
+        # 需要要操作大量小文件，可以采用GridFS的方式来配置gridFsTemplate的名称
+        gridFsTemplateName : gridFsTemplate  
+      secondary:
+        host: 127.0.0.1
+        port: 27017
+        database: mytest
+        showClass : false
+        gridFsTemplateName : logsGridFsTemplate
+    redis:
+      repositories:
+        enabled: true
+    neo4j:
+      uri: 
+      username: 
+      password: 
+      session:
+        scope: singleton
+        compiler: 
+  #数据库配置
+  datasource: 
+    url: jdbc:mysql://localhost:3306/conform?characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    min-idle: 2 
+    max-idle: 5
+    initial-size: 3
+    max-wait: 10000
+    validation-query: SELECT 1
+    time-between-eviction-runs-millis: 18800
+  redis:
+    host: localhost
+    port: 6379
+    password: 
+    timeout: 0
+    pool: 
+      max-active: 8
+      min-idle: 0
+      max-idle: 8
+      max-wait: 8
+#security安全模块
+security:
+  sessions: if_required
+  basic:
+    enabled: true
+    authorize-mode: role
+    path: '/**'
+    realm: Spring
+  enable-csrf: false
+  user:
+    name: admin
+    password: 123456
+    role: USER
+  oauth2:
+    client:
+      client-id: client
+      client-secret: client-secret
+      access-token-uri: 
+      user-authorization-uri: 
+      client-authentication-scheme: 
+    resource:
+      user-info-uri: 
+      token-info-uri: 
+    sso: 
+      login-path: /oauth2login
+feign:
+  hystrix:
+    enabled: true
+#日志配置
+logging: 
+  #config:
+  #file:
+  #path:
+  #pattern:
+  level: 
+    root: INFO 
+    org.springframework.cloud.netflix.zuul: DEBUG
+    com.netflix.zuul: DEBUG
+#zuul网关配置
+zuul:
+  ignored-services: '*'
+  routes: 
+    #路由名称
+    remote-service:
+      path: '/remote-service/**'
+      serviceId: remote-service
+    URL-REMOTE-SERVICE:
+      path: '/url-remote-service/**'
+      url: http://localhost:1000/

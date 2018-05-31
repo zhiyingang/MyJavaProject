@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.eking.elasticsearch.baseEntity.YamlHostEntity",
+      "name": "es",
+      "type": "com.eking.elasticsearch.baseEntity.YamlHostEntity"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.eking.elasticsearch.baseEntity.YamlHostEntity",
+      "name": "es.hosts",
+      "type": "java.util.List<com.eking.elasticsearch.baseEntity.HostEntity>"
+    }
+  ]
+}

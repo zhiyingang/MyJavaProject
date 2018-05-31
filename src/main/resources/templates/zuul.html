@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="edge" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta charset="UTF-8" />
+<script type="text/javascript" src="/js/jquery/2.1.1/jquery.min.js" th:src="@{/webjars/jquery/2.1.1/jquery.js}"  ></script>
+<title>ZuulApi聚合示例</title>
+</head>
+<body>
+  <p>
+    <a href="/remote-service/info" th:href="@{/remote-service/info}">REMOTE-SERVICE 转跳调用</a>
+  </p>
+  <p>
+    <a href="#" value="/remote-service/info" th:value="@{/remote-service/info}" class="remoteUrl">REMOTE-SERVICE AJAX调用</a>
+  </p>
+  <p>
+    <a href="/url-remote-service/info" th:href="@{/url-remote-service/info}">URL-REMOTE-SERVICE 转跳调用</a>
+  </p>
+  <p>
+    <a href="#" value="/url-remote-service/info" th:value="@{/url-remote-service/info}" class="remoteUrl">URL-REMOTE-SERVICE AJAX调用</a>
+  </p>
+  <script type="text/javascript">
+  	$(function(){
+  		$(".remoteUrl").bind("click",function(){
+  			var cur = $(this);
+  			$.ajax(cur.attr("value"), {
+ 				method: "POST",
+ 				data: {},
+ 				success: function() {
+ 					alert("success");
+ 				},
+ 				error: function() {
+ 					alert("error");
+ 				}
+ 			});
+  		});
+  	});
+	</script>
+</body>
+</html>
